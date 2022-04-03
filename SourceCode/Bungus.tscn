@@ -1,0 +1,60 @@
+[gd_scene load_steps=22 format=2]
+
+[ext_resource path="res://GFX/bungus/idle/bungus5.png" type="Texture" id=1]
+[ext_resource path="res://GFX/bungus/idle/bungus4.png" type="Texture" id=2]
+[ext_resource path="res://GFX/bungus/push/bungus_push6.png" type="Texture" id=3]
+[ext_resource path="res://GFX/bungus/idle/bungus7.png" type="Texture" id=4]
+[ext_resource path="res://GFX/bungus/idle/bungus6.png" type="Texture" id=5]
+[ext_resource path="res://GFX/bungus/push/bungus_push1.png" type="Texture" id=6]
+[ext_resource path="res://GFX/bungus/push/bungus_push5.png" type="Texture" id=7]
+[ext_resource path="res://GFX/bungus/push/bungus_push9.png" type="Texture" id=8]
+[ext_resource path="res://GFX/bungus/push/bungus_push3.png" type="Texture" id=9]
+[ext_resource path="res://GFX/bungus/push/bungus_push7.png" type="Texture" id=10]
+[ext_resource path="res://GFX/bungus/push/bungus_push2.png" type="Texture" id=11]
+[ext_resource path="res://GFX/bungus/push/bungus_push8.png" type="Texture" id=12]
+[ext_resource path="res://GFX/bungus/push/bungus_push4.png" type="Texture" id=13]
+[ext_resource path="res://GameObjects/Bungus.gd" type="Script" id=14]
+[ext_resource path="res://GFX/bungus/idle/bungus3.png" type="Texture" id=15]
+[ext_resource path="res://GFX/bungus/idle/bungus2.png" type="Texture" id=16]
+[ext_resource path="res://GFX/bungus/idle/bungus1.png" type="Texture" id=17]
+[ext_resource path="res://GFX/bungus/dizzy/bungus_dizzy1.png" type="Texture" id=18]
+[ext_resource path="res://GFX/bungus/dizzy/bungus_dizzy2.png" type="Texture" id=19]
+[ext_resource path="res://SFX/Push.wav" type="AudioStream" id=20]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 17 ), ExtResource( 16 ), ExtResource( 15 ), ExtResource( 2 ), ExtResource( 1 ), ExtResource( 5 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 19 ) ],
+"loop": true,
+"name": "dizzy",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 12 ), ExtResource( 8 ), ExtResource( 12 ) ],
+"loop": true,
+"name": "after_push",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 11 ), ExtResource( 9 ), ExtResource( 13 ), ExtResource( 7 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "push",
+"speed": 2.0
+} ]
+
+[node name="Bungus" type="AnimatedSprite"]
+frames = SubResource( 1 )
+animation = "idle"
+playing = true
+script = ExtResource( 14 )
+
+[node name="push_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+volume_db = -5.0
+
+[node name="push_sound_delay" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="push_sound_delay" to="." method="_on_push_sound_delay_timeout"]

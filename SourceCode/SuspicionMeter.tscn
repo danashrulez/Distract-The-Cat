@@ -1,0 +1,43 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://GFX/Font/pingwing.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://GFX/meter/distraction_meter2.png" type="Texture" id=2]
+[ext_resource path="res://GFX/meter/distraction_meter1.png" type="Texture" id=3]
+[ext_resource path="res://GameObjects/TextureProgress.gd" type="Script" id=4]
+
+[sub_resource type="DynamicFont" id=1]
+size = 25
+outline_size = 4
+outline_color = Color( 0, 0, 0, 1 )
+font_data = ExtResource( 1 )
+
+[node name="SuspicionMeter" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+margin_left = 143.0
+margin_top = -11.0
+margin_right = 207.0
+margin_bottom = 53.0
+rect_scale = Vector2( 0.75, 0.75 )
+step = -0.3
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+fill_mode = 4
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 40.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 1 )
+text = "Distraction"
+__meta__ = {
+"_edit_use_anchors_": false
+}

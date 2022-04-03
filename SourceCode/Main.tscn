@@ -1,0 +1,101 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://MainScene/Game.gd" type="Script" id=1]
+[ext_resource path="res://GameObjects/Laser.tscn" type="PackedScene" id=2]
+[ext_resource path="res://GameObjects/DistractionPlates.tscn" type="PackedScene" id=3]
+[ext_resource path="res://GFX/bg.png" type="Texture" id=4]
+[ext_resource path="res://GameObjects/Bungus.tscn" type="PackedScene" id=5]
+[ext_resource path="res://GameObjects/waterglass.tscn" type="PackedScene" id=6]
+[ext_resource path="res://GameObjects/Game_UI.tscn" type="PackedScene" id=7]
+[ext_resource path="res://GameObjects/SuspicionMeter.tscn" type="PackedScene" id=8]
+[ext_resource path="res://GameObjects/Instruction.tscn" type="PackedScene" id=9]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 270, 1 )
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="DistractionPlates" type="Node" parent="."]
+
+[node name="DistractionPlates1" parent="DistractionPlates" instance=ExtResource( 3 )]
+position = Vector2( 270, 120 )
+
+[node name="DistractionPlates2" parent="DistractionPlates" instance=ExtResource( 3 )]
+position = Vector2( 270, 200 )
+
+[node name="DistractionPlates3" parent="DistractionPlates" instance=ExtResource( 3 )]
+position = Vector2( 270, 280 )
+
+[node name="DistractionPlates4" parent="DistractionPlates" instance=ExtResource( 3 )]
+position = Vector2( 270, 360 )
+
+[node name="DistractionPlates5" parent="DistractionPlates" instance=ExtResource( 3 )]
+position = Vector2( 270, 440 )
+
+[node name="DistractionPlates6" parent="DistractionPlates" instance=ExtResource( 3 )]
+position = Vector2( 270, 520 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="limitwall" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="limitwall"]
+position = Vector2( 271, 600 )
+shape = SubResource( 1 )
+
+[node name="Laser" parent="." instance=ExtResource( 2 )]
+position = Vector2( 270, 300 )
+z_index = 1
+
+[node name="TextureRect" type="TextureRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Bungus" parent="." instance=ExtResource( 5 )]
+position = Vector2( 186, 672 )
+scale = Vector2( 1.5, 1.5 )
+frame = 1
+
+[node name="push_check_timer" type="Timer" parent="Bungus"]
+wait_time = 3.0
+one_shot = true
+
+[node name="waterglass" parent="." instance=ExtResource( 6 )]
+position = Vector2( 316, 694 )
+frame = 1
+
+[node name="Game_UI" parent="." instance=ExtResource( 7 )]
+margin_left = 253.0
+margin_top = 7.0
+margin_right = 253.0
+margin_bottom = 7.0
+
+[node name="end_game_timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="SuspicionMeter" parent="." instance=ExtResource( 8 )]
+margin_left = 165.0
+margin_top = 784.0
+margin_right = 165.0
+margin_bottom = 784.0
+
+[node name="Instruction" parent="." instance=ExtResource( 9 )]
+margin_left = 91.0
+margin_top = 562.0
+margin_right = 477.0
+margin_bottom = 591.0
+
+[connection signal="end_actions" from="." to="." method="_on_Main_end_actions"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="Bungus/push_check_timer" to="." method="_on_push_check_timer_timeout"]
+[connection signal="timeout" from="end_game_timer" to="." method="_on_end_game_timer_timeout"]
+
+[editable path="SuspicionMeter"]

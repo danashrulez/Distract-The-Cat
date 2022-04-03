@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://GameObjects/button_theme.tres" type="Theme" id=1]
+[ext_resource path="res://SFX/click.wav" type="AudioStream" id=2]
+
+[node name="Play" type="Button"]
+margin_left = 65.0
+margin_top = 348.0
+margin_right = 255.0
+margin_bottom = 390.0
+theme = ExtResource( 1 )
+text = "play again?"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 2 )

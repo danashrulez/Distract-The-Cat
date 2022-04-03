@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://GameObjects/Laser.gd" type="Script" id=1]
+[ext_resource path="res://GFX/Laser1/laser3.png" type="Texture" id=2]
+[ext_resource path="res://GFX/Laser1/laser1.png" type="Texture" id=3]
+[ext_resource path="res://GFX/Laser1/laser4.png" type="Texture" id=4]
+[ext_resource path="res://GFX/Laser1/laser2.png" type="Texture" id=5]
+[ext_resource path="res://SFX/laserShoot.wav" type="AudioStream" id=6]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 20.0
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 3 ), ExtResource( 5 ), ExtResource( 2 ), ExtResource( 4 ) ],
+"loop": true,
+"name": "idle",
+"speed": 7.0
+} ]
+
+[node name="Laser" type="KinematicBody2D"]
+position = Vector2( 260, 300 )
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="CollisionShape2D"]
+scale = Vector2( 2, 2 )
+frames = SubResource( 2 )
+animation = "idle"
+frame = 2
+playing = true
+
+[node name="jump_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 6 )
+volume_db = -8.0
